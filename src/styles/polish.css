@@ -1,0 +1,376 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Polish — refinements layered over app.css. Same tokens, same system;
+   these rules only fix alignment and tune the page header's scale.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─────────────── page header ───────────────
+   The heading leads. What used to be a label above it is now a quiet
+   meta line under the lede, so the first thing read is the sentence. */
+.page-head {
+  align-items: flex-start;
+  margin-bottom: var(--s-7);
+}
+
+.page-head h1 {
+  font-size: clamp(2rem, 1.3rem + 2.6vw, 3rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  max-width: 24ch;
+}
+
+.page-head .lede {
+  margin-top: var(--s-4);
+}
+
+.page-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: var(--s-4);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--fg-subtle);
+  font-variant-numeric: tabular-nums;
+}
+
+.page-meta svg {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 640px) {
+  /* The list is what people opened the app for; keep it on the first screen. */
+  .page-head {
+    margin-bottom: var(--s-5);
+  }
+
+  .page-head h1 {
+    font-size: 2.125rem;
+    max-width: none;
+  }
+
+  .page-head .lede {
+    margin-top: var(--s-3);
+    font-size: var(--text-base);
+    line-height: 1.55;
+  }
+
+  .page-meta {
+    margin-top: var(--s-3);
+  }
+}
+
+/* ─────────────── chapter rows ───────────────
+   app.css says the figures column must sit at the same x on every row, but
+   `auto` tracks size per row, so the sparkline drifted with the width of
+   each row's number. Fixed tracks make the columns real. */
+@media (min-width: 761px) {
+  .chapter {
+    grid-template-columns: minmax(0, 1fr) 200px 76px 24px;
+    column-gap: var(--s-4);
+  }
+
+  .chapter-figures {
+    display: grid;
+    grid-template-columns: 88px 60px 44px;
+    justify-content: end;
+    align-items: center;
+    column-gap: var(--s-3);
+  }
+
+  .chapter-rate,
+  .chapter-share {
+    min-width: 0;
+  }
+
+  .chapter .prio {
+    justify-self: end;
+  }
+}
+
+/* ─────────────── report footnotes ───────────────
+   These paragraphs mix an icon, text and <b>. As flex containers every text
+   run became its own item and the sentence broke into columns. The icon is
+   positioned instead, so the sentence stays one run of text. */
+.report-insights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: var(--s-3) var(--s-6);
+}
+
+.report-insights p {
+  display: block;
+  position: relative;
+  max-width: none;
+  padding-left: 22px;
+  line-height: 1.5;
+}
+
+.report-insights svg {
+  position: absolute;
+  left: 0;
+  top: 2px;
+  transform: none;
+}
+
+/* ─────────────── type ───────────────
+   Bricolage Grotesque ships an optical-size axis. Large headings get the
+   display cut (finer hairlines, tighter fit) and small text gets the text cut. */
+h1,
+.brand-title {
+  font-optical-sizing: auto;
+}
+
+/* ─────────────── brand mark ───────────────
+   Amber is the cut-off line's "cleared it" colour. On the dark theme the tile
+   is light, so the amber deepens to keep contrast against it. */
+.brand-mark {
+  --brand-hot: #ffc857;
+}
+
+html[data-theme="dark"] .brand-mark {
+  --brand-hot: #a85a00;
+}
+
+/* ─────────────── charts ───────────────
+   One bar carries the answer: the peak season is solid accent, the rest sit
+   back as a tint of it. Hover brings any bar forward. Colour is the second
+   channel; every bar is still labelled with its count. */
+.rchart-bar {
+  fill: color-mix(in srgb, var(--accent) 52%, var(--surface));
+  opacity: 1;
+  transition-property: fill;
+}
+
+.rchart-bar[data-peak] {
+  fill: var(--accent);
+}
+
+.rchart-bar[data-active] {
+  fill: var(--accent);
+  opacity: 1;
+}
+
+.rchart-count[data-active],
+.rchart-bar[data-peak] ~ .rchart-count {
+  fill: var(--fg);
+}
+
+/* Line charts: a slightly heavier stroke reads better on a phone, and the
+   point markers sit on the surface so they look punched out of the line. */
+.series-chart path[stroke-width="2"] {
+  stroke-width: 2.25px;
+}
+
+/* The institute page has two meta lines (type, then scope); keep them a pair. */
+.inst-head .page-meta {
+  margin-top: var(--s-3);
+  margin-bottom: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Skin — "answer sheet" leads, "results board" supports.
+   Paper, pencil ink and printed-orange rules; selected means filled in,
+   like a marked bubble. Results sit on dark scoreboard panels.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Headings: form-style grotesque, heavy and tight. */
+.page-head h1,
+.report-head h1,
+.inst-head h1,
+.brand-title {
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  font-optical-sizing: auto;
+}
+
+.page-head h1 {
+  line-height: 1;
+}
+
+/* The signature: an OMR timing track along the header edge. */
+.apphead {
+  border-bottom: 0;
+}
+
+.apphead::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 4px;
+  background: repeating-linear-gradient(90deg, var(--fg) 0 7px, transparent 7px 14px);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.apphead[data-elevated] {
+  border-bottom-color: transparent;
+}
+
+/* Logo tile is pencil ink; the bars take the paper colour. */
+.brand-mark,
+html[data-theme="dark"] .brand-mark {
+  color: var(--fg);
+  --brand-bar: var(--canvas);
+  --brand-hot: #ff7a2f;
+}
+
+html[data-theme="dark"] .brand-mark {
+  --brand-hot: #c2410c;
+}
+
+/* Answer bubbles: printed outline, filled in when marked. */
+.checkbox-box {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1.5px var(--accent);
+}
+
+.checkbox input:checked + .checkbox-box,
+html[data-theme="dark"] .checkbox input:checked + .checkbox-box {
+  background: var(--fg);
+  box-shadow: inset 0 0 0 1.5px var(--fg);
+  color: transparent;
+}
+
+.chapter[data-done] .chapter-step {
+  color: var(--fg);
+}
+
+/* Chips are bubbles too: marked = solid ink. */
+.chip {
+  box-shadow: inset 0 0 0 1.5px var(--line-strong);
+}
+
+.chip[aria-pressed="true"],
+.chip[aria-pressed="true"]:hover {
+  background: var(--fg);
+  color: var(--canvas);
+  box-shadow: none;
+}
+
+/* --------------- results emphasis ---------------
+   The predictor's result tiles and the percentile instrument are the answer
+   the reader came for, so they get their own surface and large numerals.
+
+   They used to go *dark* in light mode - a dark scoreboard slab inside a
+   paper-white page. It was deliberate, and it read as a bug: a panel that
+   ignores the theme looks like a screenshot pasted into the page, not like
+   emphasis. The emphasis is now carried by a sunken surface, a heavier
+   accent rule and the numerals themselves.
+
+   Scope note: the predictor target is `.stat`, the CARD, not `.stat-row`,
+   the grid that holds the four cards. Targeting the row painted one 3px bar
+   and a single shadow around the whole strip of tiles, which is what looked
+   broken in light mode.
+
+   In dark mode the tokens already sit on that surface, so this is scoped to
+   light only and dark needs no override at all. */
+html[data-theme="light"] .view-predict .stat {
+  --surface: var(--canvas-deep);
+  --surface-inset: color-mix(in srgb, var(--fg) 7%, transparent);
+  --safe-wash: linear-gradient(160deg, var(--safe-soft) 0%, var(--canvas-deep) 66%);
+  --caution-wash: linear-gradient(160deg, var(--caution-soft) 0%, var(--canvas-deep) 66%);
+  --reach-wash: linear-gradient(160deg, var(--reach-soft) 0%, var(--canvas-deep) 66%);
+  --neutral-wash: linear-gradient(160deg, var(--surface-sunken) 0%, var(--canvas-deep) 66%);
+  --shadow-1: 0 0 0 1px rgba(23, 23, 27, 0.1);
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-size: 100% 2px;
+  background-repeat: no-repeat;
+}
+
+html[data-theme="light"] .view-ranks .instrument {
+  --surface: var(--canvas-deep);
+  --surface-inset: color-mix(in srgb, var(--fg) 7%, transparent);
+  box-shadow: var(--shadow-2);
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-size: 100% 3px;
+  background-repeat: no-repeat;
+}
+
+.view-predict .stat-value,
+.view-ranks .conversions .num {
+  font-size: clamp(2.25rem, 1.6rem + 2vw, 3.25rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--fg);
+}
+
+/* ─────────────── Clears? column ───────────────
+   This cell used to be a bare coloured dot with the answer only in a title
+   attribute, so a reader saw "•" and nothing else — and a title never
+   appears on a phone at all. It states the answer in words now; the dot is
+   gone and colour is only the second channel. */
+.col-clears {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.clears {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  padding: 1px 7px;
+  border-radius: var(--r-pill);
+  font-size: var(--text-2xs);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--fg-muted);
+  background: var(--surface-inset);
+}
+
+.clears[data-yes] {
+  color: var(--safe);
+  background: var(--safe-soft);
+}
+
+
+/* ─────────────── navigation icons ───────────────
+   Each glyph sits on a small tile. The current section's tile is filled
+   solid ink with the glyph in paper colour: the section is "marked". The
+   padding is on every item so nothing shifts when the selection moves. */
+.primarynav-icon {
+  box-sizing: content-box;
+  padding: 4px;
+  border-radius: 7px;
+  opacity: 1;
+  transition-property: background-color, color;
+  transition-duration: var(--dur-fast);
+  transition-timing-function: var(--ease-out);
+}
+
+.primarynav-item {
+  gap: 6px;
+}
+
+.primarynav-item[aria-current="page"] {
+  background: transparent;
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.primarynav-item[aria-current="page"] .primarynav-icon {
+  background: var(--fg);
+  color: var(--canvas);
+}
+
+.tabbar-glyph {
+  width: 48px;
+  height: 30px;
+  border-radius: 15px;
+  transition-property: background-color, color;
+  transition-duration: var(--dur-fast);
+  transition-timing-function: var(--ease-out);
+}
+
+.tabbar-item[aria-current="page"] {
+  color: var(--fg);
+}
+
+.tabbar-item[aria-current="page"] .tabbar-glyph {
+  background: var(--fg);
+  color: var(--canvas);
+}

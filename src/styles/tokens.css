@@ -1,0 +1,214 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Design tokens — one contract, two themes.
+   Every colour in the app resolves to a token below; no component
+   may hard-code a hex value.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  color-scheme: light;
+
+  /* ── type ── */
+  --font-ui: "Inter Variable", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Bricolage Grotesque Variable", "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo,
+    Consolas, "Liberation Mono", monospace;
+
+  --text-2xs: 0.6875rem;  /* 11px — table headers, micro labels */
+  --text-xs: 0.75rem;     /* 12px — captions, meta */
+  --text-sm: 0.8125rem;   /* 13px — dense UI, secondary rows */
+  --text-base: 0.875rem;  /* 14px — body default */
+  --text-md: 0.9375rem;   /* 15px — lede, comfortable body */
+  --text-lg: 1.0625rem;   /* 17px — section titles */
+  --text-xl: 1.3125rem;   /* 21px — view titles */
+  --text-2xl: 1.75rem;    /* 28px — display */
+  --text-3xl: 2.5rem;     /* 40px — hero */
+
+  /* ── spacing (4px base) ── */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.25rem;
+  --s-6: 1.5rem;
+  --s-7: 2rem;
+  --s-8: 2.5rem;
+  --s-9: 3rem;
+  --s-10: 4rem;
+
+  /* ── radii: nested surfaces stay concentric (outer = inner + padding) ── */
+  --r-xs: 3px;
+  --r-sm: 4px;
+  --r-md: 6px;
+  --r-lg: 8px;
+  --r-xl: 10px;
+  --r-pill: 999px;
+
+  /* ── canvas ──
+     The page sits a step below the cards, not level with them. Without that
+     gap every card floats on the same plane and the whole page reads flat. */
+  --canvas: #f7f6f1;
+  --canvas-deep: #efede6;
+  --surface: #ffffff;
+  --surface-sunken: #faf9f5;
+  --surface-hover: #f3f1ea;
+  --surface-inset: #ece9e0;
+  --overlay: rgba(26, 25, 23, 0.34);
+
+  /* ── ink ── */
+  --fg: #17171b;
+  --fg-muted: #55535a;
+  /* Subtle ink is the most-used colour after --fg: it carries every meta line,
+     axis label and unit suffix. The original #7d7a82 measured 3.9:1 on the
+     canvas and 4.2:1 on a card; #6f6c75 fixed the card but still failed at
+     4.24:1 inside a .seg-count, which sits on --surface-inset (the darkest
+     light surface any text lands on). #67646c clears 4.78:1 there and 5.8:1
+     on white, so every surface in the light theme is covered by one value. */
+  --fg-subtle: #67646c;
+  --fg-on-accent: #ffffff;
+
+  /* ── lines ── */
+  --line: #e6d8cc;
+  --line-soft: #f0e6dd;
+  --line-strong: #d2b8a4;
+
+  /* ── accent (ink blue) ── */
+  --accent: #c2410c;
+  --accent-hover: #a8370a;
+  --accent-soft: #fdeee2;
+  --accent-soft-hover: #fbe1cd;
+  --accent-line: #f1c3a3;
+  --accent-ink: #7c2a05;
+  --accent-glow: rgba(194, 65, 12, 0.18);
+
+  /* ── semantic ── */
+  --safe: #17784a;
+  --safe-soft: #e8f6ee;
+  --safe-line: #b3e0c8;
+  --safe-wash: linear-gradient(160deg, #f0fbf4 0%, #ffffff 62%);
+
+  --caution: #9c5f0c;
+  --caution-soft: #fdf2dc;
+  --caution-line: #efd7a4;
+  --caution-wash: linear-gradient(160deg, #fefaef 0%, #ffffff 62%);
+
+  --reach: #6c3fbe;
+  --reach-soft: #f2ecfd;
+  --reach-line: #d8c8f5;
+  --reach-wash: linear-gradient(160deg, #f6f1fe 0%, #ffffff 62%);
+
+  --neutral-wash: linear-gradient(160deg, #f8f6f2 0%, #ffffff 62%);
+
+  --danger: #bd2b2b;
+  --danger-soft: #fdeceb;
+  --danger-line: #f3c3c0;
+
+  /* ── chart series ── */
+  --c1: #c2410c;
+  --c2: #17784a;
+  --c3: #2748c8;
+  --c4: #6c3fbe;
+  --c5: #b0367f;
+  --c6: #0d7a86;
+  --c7: #8a7a00;
+  --c8: #6b6459;
+
+  /* ── elevation: layered transparent shadows instead of painted borders ── */
+  --ring: 0 0 0 1px rgba(23, 23, 27, 0.12);
+  --ring-strong: 0 0 0 1px rgba(23, 23, 27, 0.2);
+  --shadow-1: 0 0 0 1px rgba(23, 23, 27, 0.1);
+  --shadow-2: 0 0 0 1px rgba(23, 23, 27, 0.2), 0 10px 22px -12px rgba(23, 23, 27, 0.3);
+  --shadow-3: 0 0 0 1px rgba(23, 23, 27, 0.24), 0 18px 40px -16px rgba(23, 23, 27, 0.38);
+
+  /* ── motion: strong custom curves, never the CSS defaults ── */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --dur-press: 120ms;
+  --dur-fast: 160ms;
+  --dur-base: 200ms;
+  --dur-slow: 280ms;
+
+  --focus-ring: 0 0 0 2px var(--canvas), 0 0 0 4px color-mix(in srgb, var(--accent) 55%, transparent);
+
+  --header-h: 56px;
+  --tabbar-h: 0px;
+  --content-max: 1160px;
+  --prose-max: 68ch;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+
+  --canvas: #0b0c0f;
+  --canvas-deep: #07080a;
+  --surface: #14161b;
+  --surface-sunken: #101216;
+  --surface-hover: #1b1e24;
+  --surface-inset: #1f2229;
+  --overlay: rgba(6, 5, 4, 0.66);
+
+  --fg: #f4f2ec;
+  --fg-muted: #a3a09a;
+  /* #77757a measured 3.97:1 on the dark surface; #8a8890 clears 5.18:1. */
+  --fg-subtle: #8a8890;
+  --fg-on-accent: #140a04;
+
+  --line: #262a31;
+  --line-soft: #1d2027;
+  --line-strong: #3a3f48;
+
+  --accent: #ff8a4c;
+  --accent-hover: #ffa26f;
+  --accent-soft: #2a1a10;
+  --accent-soft-hover: #36200f;
+  --accent-line: #5a3720;
+  --accent-ink: #ffc29d;
+  --accent-glow: rgba(255, 138, 76, 0.16);
+
+  --safe: #56c98e;
+  --safe-soft: #12261c;
+  --safe-line: #1f4433;
+  --safe-wash: linear-gradient(160deg, #16281f 0%, #1e1c18 66%);
+
+  --caution: #e0aa55;
+  --caution-soft: #2a2113;
+  --caution-line: #4a3a1c;
+  --caution-wash: linear-gradient(160deg, #2a2216 0%, #1e1c18 66%);
+
+  --reach: #b295ff;
+  --reach-soft: #201a33;
+  --reach-line: #3a2f5c;
+  --reach-wash: linear-gradient(160deg, #241d38 0%, #1e1c18 66%);
+
+  --neutral-wash: linear-gradient(160deg, #232019 0%, #1e1c18 66%);
+
+  --danger: #ff7b6e;
+  --danger-soft: #2d1614;
+  --danger-line: #55261f;
+
+  --c1: #ff8a4c;
+  --c2: #56c98e;
+  --c3: #86a2ff;
+  --c4: #b295ff;
+  --c5: #e87bb4;
+  --c6: #45c3cf;
+  --c7: #d6c24a;
+  --c8: #a8a29a;
+
+  /* on a dark canvas the depth layers read as dirt; a single white ring does the job */
+  --ring: 0 0 0 1px rgba(255, 255, 255, 0.09);
+  --ring-strong: 0 0 0 1px rgba(255, 255, 255, 0.16);
+  --shadow-1: 0 0 0 1px rgba(255, 255, 255, 0.07), 0 2px 8px -2px rgba(0, 0, 0, 0.55);
+  --shadow-2: 0 0 0 1px rgba(255, 255, 255, 0.11), 0 14px 32px -10px rgba(0, 0, 0, 0.8);
+  --shadow-3: 0 0 0 1px rgba(255, 255, 255, 0.12), 0 24px 48px -16px rgba(0, 0, 0, 0.8);
+
+  --focus-ring: 0 0 0 2px var(--canvas), 0 0 0 4px color-mix(in srgb, var(--accent) 65%, transparent);
+}
+
+/* The mobile tab bar takes real height out of the viewport. */
+@media (max-width: 760px) {
+  :root {
+    --tabbar-h: calc(58px + env(safe-area-inset-bottom, 0px));
+  }
+}

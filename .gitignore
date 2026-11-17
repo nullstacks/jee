@@ -1,0 +1,20 @@
+# build output
+dist/
+node_modules/
+
+# agent tooling (skills CLI, not part of the site)
+.agents/
+.claude/
+agent/
+skills-lock.json
+
+# local screenshots
+*.png
+!public/icons/*.png
+
+# GitHub Pages: serve files as-is, skip the Jekyll build
+!.nojekyll
+
+# OS noise
+.DS_Store
+Thumbs.db
