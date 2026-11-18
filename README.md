@@ -1,5 +1,10 @@
 # jee — JEE Main 2027 reference
 
+[![Launch video](docs/media/poster.jpg)](docs/media/launch.mp4)
+
+**[▶ Watch the 32-second launch video](docs/media/launch.mp4)** — every feature, from
+chapter weights to seat prediction. *(Click the still, or the link.)*
+
 Every chapter, ranked by what actually gets asked — one PYQ topic-analysis
 report per chapter, built from 16,649 past questions — plus percentile-to-rank
 conversion and a JoSAA college predictor on **seven years (2020–2026) of
